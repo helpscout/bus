@@ -25,5 +25,11 @@
             "HelpScout\\Bus\\Tests\\": "tests/",
             "HelpScout\\Bus\\Tests\\Assets\\": "tests/assets/"
         }
+    },
+    "scripts": {
+        "test": [
+            "@phpunit"
+        ],
+        "phpunit": "vendor/bin/phpunit --verbose",
     }
 }
