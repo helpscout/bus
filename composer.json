@@ -30,6 +30,6 @@
         "test": [
             "@phpunit"
         ],
-        "phpunit": "vendor/bin/phpunit --verbose",
+        "phpunit": "vendor/bin/phpunit --verbose"
     }
 }
