@@ -9,7 +9,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*",
@@ -25,5 +25,11 @@
             "HelpScout\\Bus\\Tests\\": "tests/",
             "HelpScout\\Bus\\Tests\\Assets\\": "tests/assets/"
         }
+    },
+    "scripts": {
+        "test": [
+            "@phpunit"
+        ],
+        "phpunit": "vendor/bin/phpunit --verbose"
     }
 }
