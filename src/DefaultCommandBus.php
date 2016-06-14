@@ -70,10 +70,13 @@ class DefaultCommandBus implements Bus
      *
      * @param Command $command
      * @param string|null|Closure|Handler $handler
+     * @return $this
      */
     public function queue(Command $command, $handler = null)
     {
         $this->queue->enqueue([$command, $handler]);
+
+        return $this;
     }
 
     /**

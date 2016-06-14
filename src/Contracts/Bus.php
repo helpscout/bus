@@ -24,6 +24,7 @@ interface Bus
      *
      * @param Command $command
      * @param string|null|Closure|Handler $handler
+     * @return $this
      */
     public function queue(Command $command, $handler = null);
 

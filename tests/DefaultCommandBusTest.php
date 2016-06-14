@@ -107,10 +107,9 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
 
         $bus = new DefaultCommandBus($resolverMock);
 
-        $bus->queue($commandMock, $handlerMock);
-        $bus->queue($commandMock, $errorHandlerMock);
-        $bus->queue($commandMock, $failedHandlerMock);
-
-        $bus->executeAll(true);
+        $bus->queue($commandMock, $handlerMock)
+            ->queue($commandMock, $errorHandlerMock)
+            ->queue($commandMock, $failedHandlerMock)
+            ->executeAll(true);
     }
 }
