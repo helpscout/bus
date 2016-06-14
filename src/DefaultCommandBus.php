@@ -1,10 +1,12 @@
 <?php
 namespace HelpScout\Bus;
 
+use Closure;
 use HelpScout\Bus\Contracts\Bus;
 use HelpScout\Bus\Contracts\Command;
 use HelpScout\Bus\Contracts\Handler;
 use HelpScout\Bus\Contracts\Resolver;
+use SplQueue;
 
 /**
  * Class DefaultCommandBus
@@ -16,7 +18,12 @@ class DefaultCommandBus implements Bus
      * Resolver for locating and instantiating handlers
      * @var Resolver
      */
-    private $resolver;
+    protected $resolver;
+
+    /**
+     * @var SplQueue
+     */
+    protected $queue;
 
     /**
      * DefaultCommandBus constructor.
@@ -26,6 +33,7 @@ class DefaultCommandBus implements Bus
     public function __construct(Resolver $resolver)
     {
         $this->resolver = $resolver;
+        $this->queue = new SplQueue;
     }
 
     /**
@@ -56,6 +64,42 @@ class DefaultCommandBus implements Bus
     {
         $this->resolver = $resolver;
     }
-}
 
-/* End of file DefaultCommandBus.php */
+    /**
+     * Queue commands to run in sequence
+     *
+     * @param Command $command
+     * @param string|null|Closure|Handler $handler
+     * @return $this
+     */
+    public function queue(Command $command, $handler = null)
+    {
+        $this->queue->enqueue([$command, $handler]);
+
+        return $this;
+    }
+
+    /**
+     * Execute all queued commands. When in strict mode,
+     * a failed command will stop subsequent executions.
+     *
+     * @param bool|false $strict
+     * @throws \Exception
+     */
+    public function executeAll($strict = false)
+    {
+        while (!$this->queue->isEmpty()) {
+            list($command, $handler) = $this->queue->dequeue();
+
+            try {
+                $this->execute($command, $handler);
+            } catch (\Exception $e) {
+                if ($strict) {
+                    throw $e;
+                }
+            }
+        }
+    }
+
+
+}
