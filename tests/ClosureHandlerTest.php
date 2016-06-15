@@ -10,11 +10,12 @@ class ClosureHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $commandMock = $this->getMockBuilder(Command::class)->getMock();
 
-        $closureHandler = new ClosureHandler(function($command)
-        {
-            return $command;
-        });
+        $closureHandler = new ClosureHandler(
+            function ($command) {
+                return $command;
+            }
+        );
 
-        $this->assertSame($closureHandler->handle($commandMock), $commandMock);
+        self::assertSame($closureHandler->handle($commandMock), $commandMock);
     }
 }

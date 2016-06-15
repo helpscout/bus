@@ -10,12 +10,14 @@ use HelpScout\Bus\Exceptions\CouldNotResolveHandlerException;
 
 /**
  * Class DefaultResolver
+ *
  * @package HelpScout\Bus
  */
 class DefaultResolver implements Resolver
 {
     /**
      * To locate an appropriate handler for a command
+     *
      * @var Translator
      */
     private $translator;
@@ -34,7 +36,7 @@ class DefaultResolver implements Resolver
      * Find an appropriate handler for a command
      *
      * @param Command $command
-     * @param mixed    $handler
+     * @param mixed   $handler
      *
      * @return null|ClosureHandler
      * @throws CouldNotResolveHandlerException

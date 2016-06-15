@@ -6,12 +6,14 @@ use HelpScout\Bus\Contracts\Handler;
 
 /**
  * Class ClosureHandler
+ *
  * @package HelpScout\Bus
  */
 class ClosureHandler implements Handler
 {
     /**
      * Closure
+     *
      * @var callable
      */
     private $closure;

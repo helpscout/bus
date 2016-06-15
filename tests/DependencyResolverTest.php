@@ -12,15 +12,17 @@ class DependencyResolverTest extends \PHPUnit_Framework_TestCase
 {
     public function testResolverInstantiatesDependencies()
     {
-        $translatorMock = $this->getMockBuilder(Translator::class)->getMock();
-        $commandMock = $this->getMockBuilder(Command::class)->getMock();
+        $translatorMock     = $this->getMockBuilder(Translator::class)->getMock();
+        $commandMock        = $this->getMockBuilder(Command::class)->getMock();
         $dependencyResolver = new DependencyResolver($translatorMock);
 
-        /** @var Foo $foo */
+        /**
+         * @var Foo $foo
+         */
         $foo = $dependencyResolver->resolve($commandMock, Foo::class);
 
-        $this->assertInstanceOf(Foo::class, $foo);
-        $this->assertInstanceOf(Bar::class, $foo->bar);
-        $this->assertInstanceOf(Baz::class, $foo->bar->baz);
+        self::assertInstanceOf(Foo::class, $foo);
+        self::assertInstanceOf(Bar::class, $foo->bar);
+        self::assertInstanceOf(Baz::class, $foo->bar->baz);
     }
 }
