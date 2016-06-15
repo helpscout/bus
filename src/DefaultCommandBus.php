@@ -10,12 +10,14 @@ use SplQueue;
 
 /**
  * Class DefaultCommandBus
+ *
  * @package HelpScout\Bus
  */
 class DefaultCommandBus implements Bus
 {
     /**
      * Resolver for locating and instantiating handlers
+     *
      * @var Resolver
      */
     protected $resolver;
@@ -33,7 +35,7 @@ class DefaultCommandBus implements Bus
     public function __construct(Resolver $resolver)
     {
         $this->resolver = $resolver;
-        $this->queue = new SplQueue;
+        $this->queue    = new SplQueue;
     }
 
     /**
@@ -48,6 +50,7 @@ class DefaultCommandBus implements Bus
     {
         /**
          * The correct handler for the given command
+         *
          * @var Handler $handler
          */
         $handler = $this->resolver->resolve($command, $handler);
@@ -59,6 +62,8 @@ class DefaultCommandBus implements Bus
      * Replace the current Resolver with a new instance
      *
      * @param Resolver $resolver
+     *
+     * @return void
      */
     public function setResolver(Resolver $resolver)
     {
@@ -68,8 +73,9 @@ class DefaultCommandBus implements Bus
     /**
      * Queue commands to run in sequence
      *
-     * @param Command $command
+     * @param Command                     $command
      * @param string|null|Closure|Handler $handler
+     *
      * @return $this
      */
     public function queue(Command $command, $handler = null)
@@ -83,7 +89,9 @@ class DefaultCommandBus implements Bus
      * Execute all queued commands. When in strict mode,
      * a failed command will stop subsequent executions.
      *
-     * @param bool|false $strict
+     * @param boolean|false $strict
+     *
+     * @return void
      * @throws \Exception
      */
     public function executeAll($strict = false)
@@ -100,6 +108,4 @@ class DefaultCommandBus implements Bus
             }
         }
     }
-
-
 }

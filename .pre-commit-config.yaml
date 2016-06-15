@@ -1,0 +1,47 @@
+- repo: git@github.com:pre-commit/pre-commit-hooks
+  sha: ff65d01841ad012d0a9aa1dc451fc4539d8b7baf
+  hooks:
+  - id: check-json
+    stages: [commit]
+  - id: check-merge-conflict
+    stages: [commit]
+  - id: check-yaml
+    stages: [commit]
+  - id: end-of-file-fixer
+    stages: [commit]
+  - id: trailing-whitespace
+    stages: [commit]
+  - id: detect-private-key
+    stages: [commit]
+  - id: detect-aws-credentials
+    stages: [commit]
+- repo: git@github.com:hootsuite/pre-commit-php.git
+  sha: 1.1.0
+  hooks:
+  - id: php-lint-all
+    stages: [commit,push]
+  - id: php-unit
+    stages: [commit,push]
+  - id: php-cs
+    stages: [commit]
+    files: \.(php)$
+    args: [
+      '-p',
+      '--standard=vendor/helpscout/php-standards/HelpScout',
+      '--warning-severity=0',
+      '--ignore=examples'
+    ]
+- repo: git://github.com/Lucas-C/pre-commit-hooks
+  sha: b600798f8dacfcc29862e3d58367b89d3090c6a7
+  hooks:
+  - id: forbid-crlf
+    stages: [commit]
+  - id: forbid-tabs
+- repo: local
+  hooks:
+  - id: check-bash-syntax
+    stages: [commit]
+    name: Check Shell scripts syntax corectness
+    language: system
+    entry: bash -n
+    files: \.sh$

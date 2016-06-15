@@ -1,6 +1,7 @@
 <?php
 namespace HelpScout\Bus\Tests;
 
+use HelpScout\Bus\Contracts\Resolver;
 use HelpScout\Bus\Exceptions\CouldNotResolveHandlerException;
 use HelpScout\Bus\Tests\Assets\DummyHandler;
 use HelpScout\Bus\Contracts\Command;
@@ -11,15 +12,32 @@ use HelpScout\Bus\DefaultResolver;
 
 class DefaultResolverTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Mock of a command class
+     *
+     * @var mixed
+     */
     private $commandMock;
+
+    /**
+     * Mock of a translator class
+     *
+     * @var mixed
+     */
     private $translatorMock;
+
+    /**
+     * Default Resolver
+     *
+     * @var Resolver
+     */
     private $resolver;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->commandMock = $this->getMockBuilder(Command::class)->getMock();
+        $this->commandMock    = $this->getMockBuilder(Command::class)->getMock();
         $this->translatorMock = $this->getMockBuilder(Translator::class)->getMock();
         $this->translatorMock->method('translate')->willReturn(DummyHandler::class);
         $this->resolver = new DefaultResolver($this->translatorMock);
@@ -29,32 +47,50 @@ class DefaultResolverTest extends \PHPUnit_Framework_TestCase
     {
         $handlerMock = $this->getMockBuilder(Handler::class)->getMock();
 
-        $this->assertSame($handlerMock, $this->resolver->resolve($this->commandMock, $handlerMock));
+        self::assertSame(
+            $handlerMock,
+            $this->resolver->resolve($this->commandMock, $handlerMock)
+        );
     }
 
     public function testReturnHandlerFromString()
     {
-        $this->assertTrue($this->resolver->resolve($this->commandMock, DummyHandler::class) instanceof DummyHandler);
+        self::assertInstanceOf(
+            DummyHandler::class,
+            $this->resolver->resolve($this->commandMock, DummyHandler::class)
+        );
     }
 
     public function testReturnClosureHandler()
     {
-        $handler = function(){};
+        $handler = function () {
+            // noop
+        };
 
-        $this->assertTrue($this->resolver->resolve($this->commandMock, $handler) instanceof ClosureHandler);
+        self::assertInstanceOf(
+            ClosureHandler::class,
+            $this->resolver->resolve($this->commandMock, $handler)
+        );
     }
 
     public function testReturnTranslatedHandler()
     {
-        $this->assertTrue($this->resolver->resolve($this->commandMock) instanceof DummyHandler);
+        self::assertInstanceOf(
+            DummyHandler::class,
+            $this->resolver->resolve($this->commandMock)
+        );
     }
 
     /**
      * @expectedException \HelpScout\Bus\Exceptions\CouldNotResolveHandlerException
+     *
+     * @return void
      */
     public function testResolverThrowsException()
     {
-        $this->translatorMock->method('translate')->willThrowException(new CouldNotResolveHandlerException);
+        $this->translatorMock
+            ->method('translate')
+            ->willThrowException(new CouldNotResolveHandlerException);
 
         $this->resolver->resolve($this->commandMock);
     }

@@ -5,6 +5,7 @@ use HelpScout\Bus\Contracts\Handler;
 
 /**
  * Class DefaultCommandBus
+ *
  * @package HelpScout\Bus
  */
 class DependencyResolver extends DefaultResolver
@@ -19,7 +20,7 @@ class DependencyResolver extends DefaultResolver
     protected function initClass($className)
     {
         // Use reflection to get the list of constructor dependencies
-        $class = new \ReflectionClass($className);
+        $class       = new \ReflectionClass($className);
         $constructor = $class->getConstructor();
 
         // if no constructor, pop smoke and move out!

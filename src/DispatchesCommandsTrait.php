@@ -19,7 +19,10 @@ trait DispatchesCommandsTrait
      */
     public function dispatch(Command $command, $handler = null)
     {
-        $bus = new DefaultCommandBus(new DefaultResolver(new NameBasedTranslator));
+        $bus = new DefaultCommandBus(
+            new DefaultResolver(new NameBasedTranslator)
+        );
+
         return $bus->execute($command, $handler);
     }
 }

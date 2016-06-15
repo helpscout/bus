@@ -3,6 +3,7 @@ namespace HelpScout\Bus\Contracts;
 
 /**
  * Interface Handler
+ *
  * @package HelpScout\Bus\Contracts
  */
 interface Handler

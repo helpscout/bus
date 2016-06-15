@@ -5,6 +5,7 @@ use Closure;
 
 /**
  * Interface Bus
+ *
  * @package HelpScout\Bus\Contracts
  */
 interface Bus
@@ -22,8 +23,9 @@ interface Bus
     /**
      * Queue commands to run in sequence
      *
-     * @param Command $command
+     * @param Command                     $command
      * @param string|null|Closure|Handler $handler
+     *
      * @return $this
      */
     public function queue(Command $command, $handler = null);
@@ -32,7 +34,8 @@ interface Bus
      * Execute all queued commands. When in strict mode,
      * a failed command will stop subsequent executions.
      *
-     * @param bool|false $strict
+     * @param boolean|false $strict
+     *
      * @return void
      */
     public function executeAll($strict = false);

@@ -1,6 +1,7 @@
 <?php
 namespace HelpScout\Bus\Tests;
 
+use HelpScout\Bus\Exceptions\HandlerNotRegisteredException;
 use HelpScout\Bus\Tests\Assets\DummyCommand;
 use HelpScout\Bus\Tests\Assets\DummyHandler;
 use HelpScout\Bus\Tests\Assets\FooCommand;
@@ -12,11 +13,16 @@ class NameBasedTranslatorTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new NameBasedTranslator;
 
-        $this->assertEquals($translator->translate(new DummyCommand), DummyHandler::class);
+        self::assertEquals(
+            $translator->translate(new DummyCommand),
+            DummyHandler::class
+        );
     }
 
     /**
      * @expectedException \HelpScout\Bus\Exceptions\HandlerNotRegisteredException
+     *
+     * @return void
      */
     public function testTranslatorThrowsExceptionWhenHandlerDoesNotExist()
     {

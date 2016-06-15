@@ -1,4 +1,6 @@
 <?php
 namespace HelpScout\Bus\Exceptions;
 
-class CouldNotResolveHandlerException extends \Exception {}
+class CouldNotResolveHandlerException extends \Exception
+{
+}

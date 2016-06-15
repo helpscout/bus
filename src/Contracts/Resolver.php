@@ -3,6 +3,7 @@ namespace HelpScout\Bus\Contracts;
 
 /**
  * Interface Resolver
+ *
  * @package HelpScout\Bus\Contracts
  */
 interface Resolver

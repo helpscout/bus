@@ -3,6 +3,7 @@ namespace HelpScout\Bus\Contracts;
 
 /**
  * Interface Translator
+ *
  * @package HelpScout\Bus\Contracts
  */
 interface Translator

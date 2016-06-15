@@ -7,21 +7,23 @@ class WithDataTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testWithDataSetsClassProperties()
     {
-        $command = FooCommand::withData([
+        $data    = [
             'prefix' => 'hello',
             'suffix' => 'world'
-        ]);
+        ];
+        $command = FooCommand::withData($data);
 
-        $this->assertEquals('hello', $command->prefix);
-        $this->assertEquals('world', $command->suffix);
+        self::assertEquals('hello', $command->prefix);
+        self::assertEquals('world', $command->suffix);
     }
 
     public function testWithDataSkipsNonPropertyValues()
     {
-        $command = $command = FooCommand::withData([
+        $data    = [
             'punctuation' => '!'
-        ]);
+        ];
+        $command = $command = FooCommand::withData($data);
 
-        $this->assertFalse(isset($command->punctuation));
+        self::assertFalse(isset($command->punctuation));
     }
 }

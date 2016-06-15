@@ -26,45 +26,45 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
 
         $bus = new DefaultCommandBus($resolverMock);
 
-        $this->assertEquals($bus->execute($commandMock), $testMessage);
+        self::assertEquals($bus->execute($commandMock), $testMessage);
     }
 
     public function testSetResolverOnBus()
     {
         $resolverMock = $this->getMockBuilder(Resolver::class)->getMock();
-        $bus = new DefaultCommandBus($resolverMock);
+        $bus          = new DefaultCommandBus($resolverMock);
 
-        $reflectionClass = new \ReflectionClass(DefaultCommandBus::class);
+        $reflectionClass    = new \ReflectionClass(DefaultCommandBus::class);
         $reflectionProperty = $reflectionClass->getProperty('resolver');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertSame($resolverMock, $reflectionProperty->getValue($bus));
+        self::assertSame($resolverMock, $reflectionProperty->getValue($bus));
 
         $newResolverMock = $this->getMockBuilder(Resolver::class)->getMock();
         $bus->setResolver($newResolverMock);
 
-        $this->assertSame($newResolverMock, $reflectionProperty->getValue($bus));
+        self::assertSame($newResolverMock, $reflectionProperty->getValue($bus));
     }
 
     public function testQueueMethodEnqueuesCommand()
     {
         $resolverMock = $this->getMockBuilder(Resolver::class)->getMock();
-        $bus = new DefaultCommandBus($resolverMock);
+        $bus          = new DefaultCommandBus($resolverMock);
 
-        $reflectionClass = new \ReflectionClass(DefaultCommandBus::class);
+        $reflectionClass    = new \ReflectionClass(DefaultCommandBus::class);
         $reflectionProperty = $reflectionClass->getProperty('queue');
         $reflectionProperty->setAccessible(true);
 
         $queue = $reflectionProperty->getValue($bus);
 
-        $this->assertInstanceOf(\SplQueue::class, $queue);
-        $this->assertEquals(0, $queue->count());
+        self::assertInstanceOf(\SplQueue::class, $queue);
+        self::assertEquals(0, $queue->count());
 
         $commandMock = $this->getMockBuilder(Command::class)->getMock();
 
         $bus->queue($commandMock);
 
-        $this->assertEquals(1, $queue->count());
+        self::assertEquals(1, $queue->count());
     }
 
     public function testExecuteAllExecutesQueuedCommands()
@@ -85,6 +85,8 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Exception
+     *
+     * @return void
      */
     public function testExecuteAllStopsExecutionWhenSetToStrict()
     {
@@ -94,7 +96,9 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
         $handlerMock->expects($this->once())->method('handle');
 
         $errorHandlerMock = $this->getMockBuilder(Handler::class)->getMock();
-        $errorHandlerMock->expects($this->once())->method('handle')->willThrowException(new Exception);
+        $errorHandlerMock->expects($this->once())
+            ->method('handle')
+            ->willThrowException(new Exception);
 
         $failedHandlerMock = $this->getMockBuilder(Handler::class)->getMock();
         $failedHandlerMock->expects($this->never())->method('handle');
