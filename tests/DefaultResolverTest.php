@@ -56,7 +56,7 @@ class DefaultResolverTest extends \PHPUnit_Framework_TestCase
     public function testReturnHandlerFromString()
     {
         self::assertInstanceOf(
-            'DummyHandler',
+            DummyHandler::class,
             $this->resolver->resolve($this->commandMock, DummyHandler::class)
         );
     }
@@ -68,7 +68,7 @@ class DefaultResolverTest extends \PHPUnit_Framework_TestCase
         };
 
         self::assertInstanceOf(
-            'ClosureHandler',
+            ClosureHandler::class,
             $this->resolver->resolve($this->commandMock, $handler)
         );
     }
@@ -76,13 +76,13 @@ class DefaultResolverTest extends \PHPUnit_Framework_TestCase
     public function testReturnTranslatedHandler()
     {
         self::assertInstanceOf(
-            'DummyHandler',
+            DummyHandler::class,
             $this->resolver->resolve($this->commandMock)
         );
     }
 
     /**
-     * @expectedException CouldNotResolveHandlerException
+     * @expectedException \HelpScout\Bus\Exceptions\CouldNotResolveHandlerException
      *
      * @return void
      */

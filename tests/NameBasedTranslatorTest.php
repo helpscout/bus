@@ -20,7 +20,7 @@ class NameBasedTranslatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException HandlerNotRegisteredException
+     * @expectedException \HelpScout\Bus\Exceptions\HandlerNotRegisteredException
      *
      * @return void
      */
