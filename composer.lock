@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5955066389486a8ca413125a352863a",
+    "hash": "b22bfa5f66b4e14924b34eb59bf583d0",
     "content-hash": "b978c323c2458ac7e1d60290465dac5c",
     "packages": [],
     "packages-dev": [
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helpscout/php-standards.git",
-                "reference": "83746de557e78db44c121187e0f2d4f410c510a6"
+                "reference": "7ed5fc53d3af4c5cf6334d780e7fbf0270d48352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helpscout/php-standards/zipball/83746de557e78db44c121187e0f2d4f410c510a6",
-                "reference": "83746de557e78db44c121187e0f2d4f410c510a6",
+                "url": "https://api.github.com/repos/helpscout/php-standards/zipball/7ed5fc53d3af4c5cf6334d780e7fbf0270d48352",
+                "reference": "7ed5fc53d3af4c5cf6334d780e7fbf0270d48352",
                 "shasum": ""
             },
             "type": "library",
@@ -94,7 +94,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-05-06 16:58:39"
+            "time": "2016-06-15 14:24:55"
         },
         {
             "name": "jakub-onderka/php-console-color",
