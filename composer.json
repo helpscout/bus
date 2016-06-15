@@ -12,8 +12,13 @@
         "php": ">=5.5.0"
     },
     "require-dev": {
+        "helpscout/php-standards": "dev-master",
+        "jakub-onderka/php-console-highlighter": "^0.3.2",
+        "jakub-onderka/php-parallel-lint": "^0.9.2",
+        "phpunit/php-code-coverage": "^4.0",
         "phpunit/phpunit": "4.8.*",
-        "phpunit/php-code-coverage": "2.2.*"
+        "phpunit/phpunit": "^5.3",
+        "squizlabs/php_codesniffer": "^2.6"
     },
     "autoload": {
         "psr-4": {
@@ -27,9 +32,18 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [
+            "bash contrib/setup.sh"
+        ],
         "test": [
+            "@lint",
+            "@sniff",
             "@phpunit"
         ],
+        "lint": "vendor/bin/parallel-lint --exclude app --exclude vendor .",
+        "sniff": "vendor/bin/phpcs --standard=vendor/helpscout/php-standards/HelpScout --warning-severity=0 --extensions=php src tests",
+        "strict": "vendor/bin/phpcs --standard=vendor/helpscout/php-standards/HelpScout --extensions=php src tests",
+        "format": "vendor/bin/phpcbf --standard=vendor/helpscout/php-standards/HelpScout --extensions=php src tests",
         "phpunit": "vendor/bin/phpunit --verbose"
     }
 }
