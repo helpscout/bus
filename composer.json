@@ -5,6 +5,10 @@
         {
             "name": "Steven Wade",
             "email": "stevenwadejr@gmail.com"
+        },
+        {
+            "name": "Craig Davis",
+            "email": "craig@helpscout.com"
         }
     ],
     "minimum-stability": "stable",
