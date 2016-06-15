@@ -1,4 +1,4 @@
 /vendor/
-/log/
+/build/logs/
 .idea
 
