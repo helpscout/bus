@@ -116,6 +116,4 @@ class DefaultCommandBus implements Bus
             $this->execute($command, $handler);
         }
     }
-
-
 }
