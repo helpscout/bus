@@ -31,12 +31,20 @@ interface Bus
     public function queue(Command $command, $handler = null);
 
     /**
-     * Execute all queued commands. When in strict mode,
-     * a failed command will stop subsequent executions.
-     *
-     * @param boolean|false $strict
+     * Execute all queued commands. Failing commands will be
+     * caught and silenced while subsequent commands will
+     * continue to run.
      *
      * @return void
      */
-    public function executeAll($strict = false);
+    public function executeAll();
+
+    /**
+     * Execute all queued commands in strict mode. With strict
+     * mode, if one commands fail, no other commands will run
+     * and an exception will be thrown.
+     *
+     * @return void
+     */
+    public function executeAllStrict();
 }

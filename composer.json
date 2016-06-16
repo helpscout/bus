@@ -1,6 +1,7 @@
 {
     "name": "helpscout/bus",
     "license": "MIT",
+    "version": "0.4.0",
     "authors": [
         {
             "name": "Steven Wade",

@@ -83,12 +83,41 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
         $bus->executeAll();
     }
 
+    public function testExecuteAllRecoversFromAThrownExeception()
+    {
+        $commandMock = $this->getMockBuilder(Command::class)->getMock();
+
+        $handlerMock = $this->getMockBuilder(Handler::class)->getMock();
+        $handlerMock->expects($this->once())->method('handle');
+
+        $errorHandlerMock = $this->getMockBuilder(Handler::class)->getMock();
+        $errorHandlerMock->expects($this->once())
+            ->method('handle')
+            ->willThrowException(new Exception);
+
+        $recoveredHandlerMock = $this->getMockBuilder(Handler::class)->getMock();
+        $recoveredHandlerMock->expects($this->once())->method('handle');
+
+        $resolverMock = $this->getMockBuilder(Resolver::class)->getMock();
+
+        $resolverMock->expects($this->any())
+            ->method('resolve')
+            ->will($this->onConsecutiveCalls($handlerMock, $errorHandlerMock, $recoveredHandlerMock));
+
+        $bus = new DefaultCommandBus($resolverMock);
+
+        $bus->queue($commandMock, $handlerMock)
+            ->queue($commandMock, $errorHandlerMock)
+            ->queue($commandMock, $recoveredHandlerMock)
+            ->executeAll();
+    }
+
     /**
      * @expectedException \Exception
      *
      * @return void
      */
-    public function testExecuteAllStopsExecutionWhenSetToStrict()
+    public function testExecuteAllStrictStopsExecution()
     {
         $commandMock = $this->getMockBuilder(Command::class)->getMock();
 
@@ -114,6 +143,6 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
         $bus->queue($commandMock, $handlerMock)
             ->queue($commandMock, $errorHandlerMock)
             ->queue($commandMock, $failedHandlerMock)
-            ->executeAll(true);
+            ->executeAllStrict();
     }
 }
