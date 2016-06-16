@@ -16,7 +16,9 @@ trait WithDataTrait
     public static function withData(array $data)
     {
         $self = new self();
-        foreach ($self as $property => $value) {
+
+        $properties = get_object_vars($self);
+        foreach (array_keys($properties) as $property) {
             if (!array_key_exists($property, $data)) {
                 continue;
             }
