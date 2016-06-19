@@ -6,7 +6,7 @@ namespace HelpScout\Bus\Contracts;
  *
  * @package HelpScout\Bus\Contracts
  */
-interface SelfHandler
+interface SelfHandling
 {
     /**
      * Run the actions on a command DTO

@@ -6,8 +6,7 @@ use HelpScout\Bus\Contracts\Command;
 use HelpScout\Bus\Contracts\Handler;
 use HelpScout\Bus\Contracts\Resolver;
 use HelpScout\Bus\Contracts\Translator;
-use HelpScout\Bus\Contracts\SelfHandler;
-use HelpScout\Bus\SelfExecutingHandler;
+use HelpScout\Bus\Contracts\SelfHandling;
 use HelpScout\Bus\Exceptions\CouldNotResolveHandlerException;
 
 /**
@@ -56,8 +55,8 @@ class DefaultResolver implements Resolver
                 case $handler instanceof Closure:
                     return new ClosureHandler($handler);
 
-                case $handler instanceof SelfHandler:
-                    return new SelfExecutingHandler($handler);
+                case $command instanceof SelfHandling:
+                    return new SelfHandlingHandler($command);
 
                 default:
                     $translatedClass = $this->translator->translate($command);

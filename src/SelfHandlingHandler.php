@@ -3,14 +3,14 @@ namespace HelpScout\Bus;
 
 use HelpScout\Bus\Contracts\Command;
 use HelpScout\Bus\Contracts\Handler;
-use HelpScout\Bus\Contracts\SelfHandler;
+use HelpScout\Bus\Contracts\SelfHandling;
 
 /**
  * Class SelfExecutingHandler
  *
  * @package HelpScout\Bus
  */
-class SelfExecutingHandler implements Command, Handler
+class SelfHandlingHandler implements Command, Handler
 {
     /**
      * Self handling command
@@ -22,9 +22,9 @@ class SelfExecutingHandler implements Command, Handler
     /**
      * SelfExecutingHandler constructor.
      *
-     * @param SelfHandler $handler
+     * @param SelfHandling $handler
      */
-    public function __construct(SelfHandler $handler)
+    public function __construct(SelfHandling $handler)
     {
         $this->handler = $handler;
     }
