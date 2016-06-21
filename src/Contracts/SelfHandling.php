@@ -6,12 +6,14 @@ namespace HelpScout\Bus\Contracts;
  *
  * @package HelpScout\Bus\Contracts
  */
-interface SelfHandling
+interface SelfHandling extends Handler
 {
     /**
      * Run the actions on a command DTO
      *
+     * @param Command $command
+     *
      * @return mixed
      */
-    public function handle();
+    public function handle(Command $command);
 }

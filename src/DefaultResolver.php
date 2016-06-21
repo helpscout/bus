@@ -46,6 +46,9 @@ class DefaultResolver implements Resolver
     {
         try {
             switch (true) {
+                case $command instanceof SelfHandling:
+                    return $command;
+
                 case $handler instanceof Handler:
                     return $handler;
 
@@ -54,9 +57,6 @@ class DefaultResolver implements Resolver
 
                 case $handler instanceof Closure:
                     return new ClosureHandler($handler);
-
-                case $command instanceof SelfHandling:
-                    return new SelfHandlingHandler($command);
 
                 default:
                     $translatedClass = $this->translator->translate($command);

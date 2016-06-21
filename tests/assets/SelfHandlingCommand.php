@@ -6,7 +6,7 @@ use HelpScout\Bus\Contracts\SelfHandling;
 
 class SelfHandlingCommand implements Command, SelfHandling
 {
-    public function handle()
+    public function handle(Command $command)
     {
         // NOOP
     }

@@ -5,7 +5,6 @@ use HelpScout\Bus\Contracts\Resolver;
 use HelpScout\Bus\Exceptions\CouldNotResolveHandlerException;
 use HelpScout\Bus\Tests\Assets\DummyHandler;
 use HelpScout\Bus\Tests\Assets\SelfHandlingCommand;
-use HelpScout\Bus\SelfHandlingHandler;
 use HelpScout\Bus\Contracts\Command;
 use HelpScout\Bus\Contracts\Handler;
 use HelpScout\Bus\Contracts\Translator;
@@ -88,8 +87,8 @@ class DefaultResolverTest extends \PHPUnit_Framework_TestCase
         $selfHandler = new SelfHandlingCommand;
 
         self::assertInstanceOf(
-            SelfHandlingHandler::class,
-            $this->resolver->resolve($selfHandler, $selfHandler)
+            SelfHandlingCommand::class,
+            $this->resolver->resolve($selfHandler)
         );
     }
 
