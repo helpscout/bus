@@ -9,6 +9,7 @@ use HelpScout\Bus\DefaultCommandBus;
 use HelpScout\Bus\Tests\Assets\DummyCommand;
 use HelpScout\Bus\Tests\Assets\DummyHandler;
 use HelpScout\Bus\Tests\Assets\FooCommand;
+use HelpScout\Bus\Tests\Assets\SelfHandlingCommand;
 
 class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +28,21 @@ class DefaultCommandBusTest extends \PHPUnit_Framework_TestCase
         $bus = new DefaultCommandBus($resolverMock);
 
         self::assertEquals($bus->execute($commandMock), $testMessage);
+    }
+
+    public function testBusExecutesSelfHandlingCommandHandler()
+    {
+        $testMessage = 'The wheels on the bus go round and round';
+
+        $selfHandlerMock = $this->getMockBuilder(SelfHandlingCommand::class)->getMock();
+        $selfHandlerMock->method('handle')->willReturn($testMessage);
+
+        $resolverMock = $this->getMockBuilder(Resolver::class)->getMock();
+        $resolverMock->method('resolve')->willReturn($selfHandlerMock);
+
+        $bus = new DefaultCommandBus($resolverMock);
+
+        self::assertEquals($bus->execute($selfHandlerMock), $testMessage);
     }
 
     public function testSetResolverOnBus()

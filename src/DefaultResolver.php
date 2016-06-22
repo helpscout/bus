@@ -6,6 +6,7 @@ use HelpScout\Bus\Contracts\Command;
 use HelpScout\Bus\Contracts\Handler;
 use HelpScout\Bus\Contracts\Resolver;
 use HelpScout\Bus\Contracts\Translator;
+use HelpScout\Bus\Contracts\SelfHandling;
 use HelpScout\Bus\Exceptions\CouldNotResolveHandlerException;
 
 /**
@@ -45,6 +46,9 @@ class DefaultResolver implements Resolver
     {
         try {
             switch (true) {
+                case $command instanceof SelfHandling:
+                    return $command;
+
                 case $handler instanceof Handler:
                     return $handler;
 
